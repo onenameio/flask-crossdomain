@@ -1,10 +1,16 @@
+# Cross domain request decorator
+
 from datetime import timedelta
 from functools import update_wrapper
-
 from flask import make_response, request, current_app
 
+X_HEADERS = [
+    'X-Requested-With', 'Accept', 'Content-Type', 'X-HTTP-Method-Override',
+    'Origin', 'Pragma', 'Referer', 'User-Agent', 'If-Match', 'If-None-Match'
+]
 
-def crossdomain(origin=None, methods=None, headers=None,
+
+def crossdomain(origin='*', methods=None, headers=X_HEADERS,
                 max_age=21600, attach_to_all=True,
                 automatic_options=True):
     if methods is not None:
